@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  api-gateway:
+    build: ./forumapp-api-gateway
+    ports:
+      - "8010:8010"
+
+  users:
+    build: ./forumapp-users
+    ports:
+      - "8000:8000"
+
+  replies:
+    build: ./forumapp-replies
+    ports:
+      - "8001:8001"
