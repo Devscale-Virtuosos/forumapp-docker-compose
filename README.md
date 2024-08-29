@@ -7,9 +7,11 @@ Letakkan sejajar dengan direktori service-service yang lain (jangan di dalamnya)
 Wrapper Directory
 ├── forumapp-api-gateway
 │
-├── forumapp-api-replies
+├── forumapp-replies
 │
-├── forumapp-api-users
+├── forumapp-threads
+│
+├── forumapp-users
 │
 └── docker-compose.yml # di sini
 ```

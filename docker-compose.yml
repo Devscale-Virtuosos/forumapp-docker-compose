@@ -15,3 +15,8 @@ services:
     build: ./forumapp-replies
     ports:
       - "8001:8001"
+
+  threads:
+    build: ./forumapp-threads
+    ports:
+      - "8002:8002"
