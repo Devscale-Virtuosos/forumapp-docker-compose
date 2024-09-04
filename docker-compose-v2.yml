@@ -1,0 +1,72 @@
+version: "3.8"
+
+services:
+  api-gateway:
+    build: ./forumapp-api-gateway
+    ports:
+      - "8010:8010"
+    env_file:
+      - ./forumapp-api-gateway/.env
+
+  users:
+    build: ./forumapp-users
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./forumapp-users/.env
+    depends_on:
+      - mongo-users
+
+  replies:
+    build: ./forumapp-replies
+    ports:
+      - "8001:8001"
+    env_file:
+      - ./forumapp-replies/.env
+    depends_on:
+      - mongo-replies
+      - rabbitmq
+
+  threads:
+    build: ./forumapp-threads
+    ports:
+      - "8002:8002"
+    env_file:
+      - ./forumapp-threads/.env
+    depends_on:
+      - mongo-threads
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  mongo-users:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-users:/data/db
+
+  mongo-replies:
+    image: mongo
+    command: mongod --port 27018
+    ports:
+      - "27018:27018"
+    volumes:
+      - mongo-replies:/data/db
+
+  mongo-threads:
+    image: mongo
+    command: mongod --port 27019
+    ports:
+      - "27019:27019"
+    volumes:
+      - mongo-threads:/data/db
+
+volumes:
+  mongo-users:
+  mongo-replies:
+  mongo-threads:
